@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile - Social Network App</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bang-Yen Kao" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div>
+      <h1 id="main_title">The "Ricing" Social Network</h1>
+      <a class="link main_page_link" href="./main.html">Main Page</a>
+      <h3 class="title_profile">Profile</h3>
+    </div>
+    <hr />
+    <div class="profile">
+      <div>
+        <span
+          >Display Name
+          <input
+            type="text"
+            id="display_name_field"
+            onkeyup="validate_name()"
+            placeholder="Austin Power"
+          />
+          Now: <span id="display_name">Austin Power</span>
+        </span>
+      </div>
+
+      <br />
+      <div>
+        <span
+          >Email Address
+          <input
+            type="text"
+            id="email_address_field"
+            pattern="([a-zA-Z0-9-.])+@+[a-zA-Z0-9]{1,}[.]{1}[a-zA-Z0-9]{0,}"
+            onkeyup="validate_email()"
+            placeholder="example@rice.edu"
+          />
+          Now: <span id="email_address">example@rice.edu</span>
+        </span>
+      </div>
+      <br />
+      <div>
+        <span
+          >Phone Number
+          <input
+            type="text"
+            id="phone_number_field"
+            placeholder="XXX-XXX-XXXX"
+            onkeyup="validate_phone_number()"
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          />
+          Now: <span id="phone_number">111-111-1111</span>
+        </span>
+      </div>
+      <br />
+      <div>
+        <span
+          >Zipcode
+          <input
+            type="text"
+            id="zipcode_field"
+            placeholder="XXXXX"
+            onkeyup="validate_zip()"
+            pattern="[0-9]{5}"
+          />
+          Now:
+          <span id="zipcode">77777</span>
+        </span>
+      </div>
+      <br />
+      <div>
+        <span
+          >Password
+          <input type="password" id="password_field" />
+          Now: <span id="password_stars">***</span>
+        </span>
+      </div>
+      <br />
+      <div>
+        <span
+          >Password Confirmation
+          <input
+            type="password"
+            id="password_confirmation_field"
+            onkeyup="validate_password()"
+          />
+          Now: <span id="password_confirmation_stars">***</span>
+        </span>
+      </div>
+      <br />
+    </div>
+    <div id="update_message" style="display: none">update msg</div>
+    <div id="error_message" style="display: none">error msg</div>
+    <br />
+    <div id="submission_area">
+      <input
+        id="update_button"
+        type="button"
+        value="Update"
+        onclick="button_handler()"
+        class="submission_button"
+      />
+    </div>
+  </body>
+  <script src="./profile.js"></script>
+</html>

@@ -1,0 +1,80 @@
+html {
+  /* style for a TAG  */
+  scroll-behavior: smooth;
+}
+
+hr {
+  background-color: rgb(78, 78, 78);
+  width: 99%;
+  height: 0.5px;
+}
+
+#update_message {
+  color: rgb(4, 73, 236);
+}
+
+#error_message {
+  color: red;
+}
+
+.profile_button {
+  float: right;
+}
+
+.friend_name {
+  width: 15%;
+  float: center;
+}
+
+.link:hover {
+  background-color: #ffff00;
+}
+
+.submission_button:hover {
+  background-color: #ffff0084;
+}
+
+.main_page_link {
+  float: right;
+}
+
+.title_profile {
+  margin-left: 0.2em;
+  background-color: rgba(0, 0, 255, 0.174);
+  width: 7%;
+}
+
+table {
+  border: 1px solid rgb(15, 46, 223);
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+}
+td,
+th {
+  border: 1px solid rgba(3, 72, 247, 0.499);
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+tr:hover {
+  background-color: rgba(249, 255, 80, 0.074);
+}
+
+img {
+  padding-top: 3px;
+  padding-bottom: 0px;
+}
+
+.for_a_class {
+  /* style for a CLASS  */
+  color: #ffff00;
+}
+
+#for_an_id {
+  /* style for an ID  */
+  width: 6em;
+}

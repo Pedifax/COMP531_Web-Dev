@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Social Network App - Submit Page</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bang-Yen Kao" />
+  </head>
+  <body>
+    <h1>Form Processor</h1>
+
+    <table border="2" bordercolor="#FFC78E" cellpadding="15" cellspacing="2">
+      <thead>
+        <tr>
+          <th>
+            <span><b>Key</b></span>
+          </th>
+          <th>
+            <span><b>Value</b></span>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td><label>Account Name</label></td>
+          <td><label id="name">-</label></td>
+        </tr>
+        <tr>
+          <td><label>Display Name</label></td>
+          <td><label id="display_name">-</label></td>
+        </tr>
+        <tr>
+          <td><label>Email Address</label></td>
+          <td><label id="email">-</label></td>
+        </tr>
+        <tr>
+          <td><label>Phone Number</label></td>
+          <td><label id="phone">-</label></td>
+        </tr>
+        <tr>
+          <td><label>Date of Birth</label></td>
+          <td><label id="birth">-</label></td>
+        </tr>
+        <tr>
+          <td><label>Zipcode</label></td>
+          <td><label id="zip">-</label></td>
+        </tr>
+        <tr>
+          <td><label>Password</label></td>
+          <td><label id="password">-</label></td>
+        </tr>
+        <tr>
+          <td><label>Timestamp</label></td>
+          <td><label id="timestamp">-</label></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <script>
+    const url = window.location.href;
+
+    console.log(`url = ${url}`);
+
+    params = new URL(url).searchParams;
+    console.log(`params.get('name') = ${params.get("name")}`);
+    console.log(`params.get('display_name') = ${params.get("display_name")}`);
+    console.log(`params.get('email_address') = ${params.get("email_address")}`);
+    console.log(`params.get('phone_number') = ${params.get("phone_number")}`);
+    console.log(`params.get('date_of_birth') = ${params.get("date_of_birth")}`);
+    console.log(`params.get('zipcode') = ${params.get("zipcode")}`);
+    console.log(`params.get('password') = ${params.get("password")}`);
+    console.log(`params.get('timestamp') = ${params.get("timestamp")}`);
+
+    // putting up password
+    function construct_hidden_password() {
+      const pass_len = params.get("password").length;
+      console.log(`pass_len = ${pass_len}`);
+      let res = "";
+      for (i = 0; i < pass_len; i++) {
+        res += "*";
+      }
+      return res;
+    }
+    document.getElementById("password").innerHTML = construct_hidden_password();
+
+    // putting up display name if exists
+    let d_name = params.get("display_name");
+    if (d_name) {
+      document.getElementById("display_name").innerHTML = d_name;
+    } else {
+      document.getElementById("display_name").innerHTML = "-";
+    }
+
+    // transforming timestamp into readable language format and putting it up
+    function readable_timestamp() {
+      const timestamp = params.get("timestamp");
+      console.log(`timestamp = ${timestamp}`);
+      return Date(timestamp);
+    }
+    document.getElementById("timestamp").innerHTML = readable_timestamp();
+
+    // putting up the rest of the info
+    document.getElementById("name").innerHTML = params.get("name");
+    document.getElementById("phone").innerHTML = params.get("phone_number");
+    document.getElementById("birth").innerHTML = params.get("date_of_birth");
+    document.getElementById("zip").innerHTML = params.get("zipcode");
+    document.getElementById("email").innerHTML = params.get("email_address");
+  </script>
+</html>

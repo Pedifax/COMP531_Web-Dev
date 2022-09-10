@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Social Network App</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bang-Yen Kao" />
+    <style>
+      .background {
+        background-color: #ffdee9;
+        background-image: linear-gradient(90deg, #ffdee9 0%, #b5fffc 100%);
+      }
+    </style>
+  </head>
+
+  <body class="background" onload="create_timestamp()">
+    <h1 id="main_title">The "Ricing" Social Network</h1>
+    <hr style="background-color: rgb(78, 78, 78); width: 100%; height: 0.5px" />
+
+    <form id="registration_form" method="get" action="./formProcessor.html">
+      <label for="name">Account Name:* </label>
+
+      <input
+        type="text"
+        id="name"
+        size="40"
+        name="name"
+        placeholder="your name"
+        pattern="[a-zA-Z]+[a-zA-Z0-9]{0,}"
+        onkeyup="check_name()"
+        required
+      /><br /><br />
+
+      <label for="display_name">Display Name (Optional): </label>
+      <input
+        type="text"
+        id="display_name"
+        size="40"
+        name="display_name"
+        placeholder="display name"
+      /><br /><br />
+
+      <label for="email_address">Email Address:* </label>
+      <input
+        type="text"
+        id="email_address"
+        size="40"
+        name="email_address"
+        placeholder="example: hello123@gmail.com"
+        pattern="([a-zA-Z0-9])+@+[a-zA-Z0-9.]{1,}"
+        onkeypress="check_email_address()"
+        required
+      /><br /><br />
+
+      <label for="phone_number">Phone Number:* </label>
+      <input
+        type="tel"
+        name="phone_number"
+        size="40"
+        id="phone_number"
+        placeholder="XXX-XXX-XXXX"
+        onkeypress="check_phone_number()"
+        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+        required
+      /><br /><br />
+
+      <label for="date_of_birth">Date of Birth:*</label>
+      <input
+        type="date"
+        name="date_of_birth"
+        id="date_of_birth"
+        onchange="check_age()"
+        required
+      /><br /><br />
+
+      <label for="zipcode">Zipcode:*</label>
+      <input
+        type="text"
+        name="zipcode"
+        id="zipcode"
+        size="40"
+        placeholder="XXXXX"
+        onkeypress="check_zip()"
+        pattern="[0-9]{5}"
+        required
+      /><br /><br />
+
+      <label for="password">Password:*</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        onkeyup=""
+        size="40"
+        required
+      /><br /><br />
+
+      <label for="password_confirmation">Password Confirmation:*</label>
+      <input
+        type="password"
+        name="password_confirmation"
+        id="password_confirmation"
+        onkeyup="check_password()"
+        size="40"
+        required
+      /><br /><br />
+
+      <!-- hidden data: timestamp -->
+      <input
+        type="hidden"
+        name="timestamp"
+        id="timestamp"
+        value="testing!!!!!!"
+      />
+
+      <input type="submit" onclick="check_all()" value="Submit" />
+      <input type="reset" value="Reset" />
+    </form>
+  </body>
+  <script>
+    let form = document.getElementById("registration_form");
+    form.addEventListener("submit", check_all(), false);
+
+    function check_all() {
+      // put every checking function inside this
+      console.log("INSIDE CHECK_ALL()");
+      check_password();
+    }
+
+    function check_name() {
+      const name = document.getElementById("name");
+
+      let regex_head = new RegExp("[0-9\\s]");
+      let regex_body = new RegExp("^[0-9a-zA-Z]+$");
+      let time_stamp;
+      let pass_length;
+
+      if (regex_head.test(name.value[0])) {
+        console.log("JIF");
+        name.setCustomValidity(
+          "The first character can't be a number or a blank"
+        );
+        name.reportValidity();
+      } else if (!regex_body.test(name.value)) {
+        name.setCustomValidity(
+          "The account name shouldn't contain any blank or symbol"
+        );
+        name.reportValidity();
+      } else {
+        name.setCustomValidity("");
+        name.reportValidity();
+      }
+    }
+
+    function check_email_address() {
+      const email = document.getElementById("email_address");
+      email.addEventListener("input", function () {
+        if (email.validity.patternMismatch) {
+          email.setCustomValidity(
+            "Example: Jack123@rice.edu\nExpect alphabet, number, or symbols like '-' and '.' before the '@' symbol.\nOnly alphabet, number, '-', and '.' are accepted after the '@' symbol."
+          );
+          email.reportValidity();
+        } else {
+          email.setCustomValidity("");
+          email.reportValidity();
+        }
+      });
+    }
+
+    function check_phone_number() {
+      const phone = document.getElementById("phone_number");
+      phone.addEventListener("input", function () {
+        if (phone.validity.patternMismatch) {
+          phone.setCustomValidity("Expect a format of 111-111-1111");
+          phone.reportValidity();
+        } else {
+          phone.setCustomValidity("");
+          phone.reportValidity();
+        }
+      });
+      phone.addEventListener("input", function () {
+        if (phone.value.length === 3) {
+          phone.value = phone.value + "-";
+        } else if (phone.value.length === 7) {
+          phone.value = phone.value + "-";
+        }
+      });
+    }
+
+    function check_age() {
+      // console.log("Here");
+      const birth = document.getElementById("date_of_birth");
+      const birth_date = new Date(birth.value);
+      console.log(`birth_date.getTime() = ${birth_date.getTime()}`);
+      console.log(`Today is ${Date.now()}`);
+      const time_difference = new Date(Date.now() - birth_date.getTime());
+      const age = Math.abs(time_difference.getUTCFullYear() - 1970);
+      console.log(`Age = ${age}`);
+
+      // 這樣可以即時顯示警語
+      if (age < 18) {
+        birth.setCustomValidity("You should be at least 18 year old");
+        birth.reportValidity();
+      } else {
+        birth.setCustomValidity("");
+        birth.reportValidity();
+      }
+
+      // 以下這樣，會在第一次就輸入錯誤日期時，不顯示警語。第二次才會顯示警語。
+      // birth.addEventListener("change", function () {
+      //   if (age < 18) {
+      //     birth.setCustomValidity("You should be at least 18 year old");
+      //     birth.reportValidity();
+      //   } else {
+      //     birth.setCustomValidity("");
+      //     birth.reportValidity();
+      //   }
+      // });
+    }
+
+    function check_zip() {
+      const zip = document.getElementById("zipcode");
+      zip.addEventListener("input", function () {
+        if (zipcode.validity.patternMismatch) {
+          zipcode.setCustomValidity("Expect 5 numbers\nExample: 11111");
+          zipcode.reportValidity();
+        } else {
+          zipcode.setCustomValidity("");
+          zipcode.reportValidity();
+        }
+      });
+    }
+
+    function check_password() {
+      pass1 = document.getElementById("password");
+      pass2 = document.getElementById("password_confirmation");
+
+      // console.log(`pass1 = ${pass1.value}`);
+      // console.log(`pass2 = ${pass2.value}`);
+
+      if (pass1.value !== pass2.value) {
+        console.log("Inside check_password(). Password don't match");
+        pass2.setCustomValidity("Passwords don't match");
+        pass2.reportValidity();
+      } else {
+        console.log("Password match! Inside check_password()");
+        pass2.setCustomValidity("");
+        pass_length = pass1.value.length;
+        console.log(`pass_length = ${pass_length}`);
+      }
+    }
+
+    function create_timestamp() {
+      timestamp = Date.now();
+      console.log(`timestamp = ${timestamp}`);
+      // put this timestamp onto form as a hidden value
+      document.getElementById("timestamp").value = timestamp;
+    }
+  </script>
+</html>
